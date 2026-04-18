@@ -13,11 +13,13 @@
   --text: #1A202C; --text-muted: #6B7280; --border: #E2E8F0;
   --green: #1A7A4A; --green-light: #EAF4EE;
   --amber: #B45309; --amber-light: #FEF3C7;
+  --red: #B91C1C; --red-light: #FEE2E2;
+  --blue: #1D4ED8; --blue-light: #EFF6FF;
   --radius: 12px; --shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 20px 16px; }
-.wrap { max-width: 820px; margin: 0 auto; }
+.wrap { max-width: 860px; margin: 0 auto; }
 .header { background: linear-gradient(135deg, var(--primary) 0%, #1A3A5C 100%); color: white; border-radius: var(--radius); padding: 20px 26px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: var(--shadow); }
 .header-left { display: flex; align-items: center; gap: 14px; }
 .logo { width: 42px; height: 42px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.72rem; color: var(--primary); flex-shrink: 0; }
@@ -36,37 +38,75 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 .card { background: var(--white); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 14px; box-shadow: var(--shadow); border: 1px solid var(--border); }
 .card-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 label { display: block; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
-input, select { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 13px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--white); margin-bottom: 14px; transition: border-color 0.15s; outline: none; }
-input:focus, select:focus { border-color: var(--accent); }
+input, select, textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 13px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--white); margin-bottom: 14px; transition: border-color 0.15s; outline: none; }
+textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-@media(max-width:600px){ .g2,.g3{ grid-template-columns:1fr; } }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+@media(max-width:600px){ .g2,.g3,.g4{ grid-template-columns:1fr; } }
 .sec { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-dark); margin: 14px 0 12px; display: flex; align-items: center; gap: 8px; }
 .sec::after { content:''; flex:1; height:1px; background: var(--border); }
 .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
 .badge-active { background: var(--green-light); color: var(--green); }
 .badge-pending { background: var(--amber-light); color: var(--amber); }
-.jira-btn { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 11px 22px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.15s; display: inline-flex; align-items: center; gap: 8px; }
-.jira-btn:hover { background: #1A3A5C; }
+
+/* Score bar */
+.score-wrap { margin-bottom: 14px; }
+.score-bar-bg { background: var(--bg); border-radius: 999px; height: 10px; overflow: hidden; margin: 6px 0 4px; border: 1px solid var(--border); }
+.score-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #EF4444 0%, #F59E0B 40%, #22C55E 80%); transition: width 0.4s; }
+.score-labels { display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--text-muted); }
+
+/* Bureau chips */
+.bureau-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.bureau-chip { flex: 1; min-width: 90px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; text-align: center; }
+.bureau-chip .bc-name { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 4px; }
+.bureau-chip .bc-score { font-size: 1.1rem; font-weight: 800; }
+.bc-good { color: var(--green); }
+.bc-mid  { color: var(--amber); }
+.bc-low  { color: var(--red); }
+
+/* Dispute status pills */
+.dispute-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.dpill { padding: 5px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; border: 1.5px solid; cursor: pointer; transition: all 0.15s; }
+.dpill-open   { background: var(--red-light);  color: var(--red);  border-color: var(--red); }
+.dpill-pend   { background: var(--amber-light); color: var(--amber); border-color: var(--amber); }
+.dpill-closed { background: var(--green-light); color: var(--green); border-color: var(--green); }
+
+/* Action buttons */
+.action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.btn { border: none; border-radius: 8px; padding: 10px 20px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: #1A3A5C; }
+.btn-accent  { background: var(--accent); color: var(--primary); }
+.btn-accent:hover  { background: var(--accent-dark); color: white; }
+.btn-outline { background: white; color: var(--primary); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent-dark); }
+
 .toast-cont { position: fixed; top: 18px; right: 18px; z-index: 999; }
 .toast { background: var(--primary); color: white; padding: 10px 16px; border-radius: 8px; box-shadow: var(--shadow); margin-bottom: 8px; opacity: 0; transform: translateY(-6px); transition: all 0.2s; font-size: 0.82rem; font-weight: 500; }
 .toast.show { opacity: 1; transform: translateY(0); }
+
+/* Inline readonly field */
+.ro { background: var(--bg) !important; color: var(--text-muted); cursor: default; }
 </style>
 </head>
 <body>
 <div class="toast-cont" id="tc"></div>
 <div class="wrap">
 
+  <!-- Header -->
   <div class="header">
     <div class="header-left">
       <div class="logo">CTY</div>
       <div><div class="brand">Cotality</div><div class="brand-sub">Credit Ops · Agent Script</div></div>
     </div>
-    <div class="header-right">Session 2 · Wed Apr 22 · 1:00–2:00 PM<br>~80 FTEs · 13-Hr Coverage Window</div>
+    <div class="header-right"></div>
   </div>
 
   <div class="info-alert"><strong>ℹ️ Note:</strong> Identity verification, call recording, and 3-way conference setup are handled by Genesys Cloud. Agent connects with full context already available.</div>
 
+  <!-- Ticket -->
   <div class="ticket">
     <div><div class="ticket-lbl">Case Ticket</div><div class="ticket-num">#CO-58291</div></div>
     <div class="ticket-stats">
@@ -76,6 +116,7 @@ input:focus, select:focus { border-color: var(--accent); }
     </div>
   </div>
 
+  <!-- Customer Account Info -->
   <div class="card">
     <div class="card-title">Customer Account Information</div>
     <div class="g2">
@@ -110,14 +151,207 @@ input:focus, select:focus { border-color: var(--accent); }
       </div>
     </div>
     <div id="badgeCont"></div>
+  </div>
 
-    <div class="sec">Conference Call Details</div>
-    <div class="g2">
-      <div><label>Creditor Name</label><input id="creditor" placeholder="Creditor / lender name"></div>
-      <div><label>Creditor Phone</label><input id="credPhone" placeholder="Click-to-dial from Salesforce"></div>
+  <!-- Credit Profile -->
+  <div class="card">
+    <div class="card-title">Credit Profile</div>
+
+    <div class="sec">Bureau Scores</div>
+    <div class="bureau-row">
+      <div class="bureau-chip">
+        <div class="bc-name">Equifax</div>
+        <div class="bc-score bc-mid" id="scoreEQ">672</div>
+      </div>
+      <div class="bureau-chip">
+        <div class="bc-name">Experian</div>
+        <div class="bc-score bc-mid" id="scoreEX">688</div>
+      </div>
+      <div class="bureau-chip">
+        <div class="bc-name">TransUnion</div>
+        <div class="bc-score bc-good" id="scoreTU">701</div>
+      </div>
+      <div class="bureau-chip">
+        <div class="bc-name">Tri-Merge</div>
+        <div class="bc-score bc-mid" id="scoreTM">687</div>
+      </div>
     </div>
 
-    <button class="jira-btn" onclick="toast('Jira ticket created ✓')">🔗 Create Jira Ticket</button>
+    <div class="score-wrap">
+      <label>Score Range Indicator — Tri-Merge (687)</label>
+      <div class="score-bar-bg"><div class="score-bar-fill" id="scoreBar" style="width:56%"></div></div>
+      <div class="score-labels"><span>300 Poor</span><span>Fair</span><span>Good</span><span>850 Excellent</span></div>
+    </div>
+
+    <div class="g3">
+      <div><label>Report Pull Date</label><input class="ro" value="Apr 22, 2026" readonly></div>
+      <div><label>Report Type</label>
+        <select id="reportType">
+          <option selected>Tri-Merge</option>
+          <option>Single Bureau</option>
+          <option>Soft Pull</option>
+        </select>
+      </div>
+      <div><label>Freeze Status</label>
+        <select id="freezeStatus">
+          <option value="none" selected>No Freeze</option>
+          <option value="eq">Equifax Frozen</option>
+          <option value="ex">Experian Frozen</option>
+          <option value="tu">TransUnion Frozen</option>
+          <option value="all">All Bureaus Frozen</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div><label>Open Tradelines</label><input value="14" id="tradelines"></div>
+      <div><label>Derogatory Marks</label><input value="2" id="derogatoryMarks"></div>
+      <div><label>Inquiries (12 mo)</label><input value="5" id="inquiries"></div>
+    </div>
+
+    <div class="g2">
+      <div><label>Credit Utilization %</label><input value="38%" id="utilization"></div>
+      <div><label>Oldest Account Age</label><input value="11 years 4 months" id="oldestAcct"></div>
+    </div>
+  </div>
+
+  <!-- Dispute Information -->
+  <div class="card">
+    <div class="card-title">Dispute Information</div>
+
+    <div class="g3">
+      <div>
+        <label>Dispute Type</label>
+        <select id="disputeType">
+          <option value="inaccurate" selected>Inaccurate Information</option>
+          <option value="fraud">Fraud / Identity Theft</option>
+          <option value="duplicate">Duplicate Account</option>
+          <option value="notmine">Not My Account</option>
+          <option value="balance">Incorrect Balance</option>
+          <option value="status">Incorrect Status</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Dispute Status</label>
+        <select id="disputeStatus">
+          <option value="open" selected>Open</option>
+          <option value="in_review">In Review</option>
+          <option value="pending_verification">Pending Verification</option>
+          <option value="resolved">Resolved</option>
+          <option value="closed">Closed — No Action</option>
+        </select>
+      </div>
+      <div>
+        <label>Bureau(s) Involved</label>
+        <select id="bureauInvolved">
+          <option value="all" selected>All Three Bureaus</option>
+          <option value="eq">Equifax Only</option>
+          <option value="ex">Experian Only</option>
+          <option value="tu">TransUnion Only</option>
+          <option value="eq_ex">Equifax + Experian</option>
+          <option value="eq_tu">Equifax + TransUnion</option>
+          <option value="ex_tu">Experian + TransUnion</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div><label>Dispute Reference #</label><input value="DSP-2026-00391" id="disputeRef"></div>
+      <div><label>Date Filed</label><input value="2026-04-10" id="disputeDate"></div>
+      <div><label>Resolution Deadline</label><input class="ro" value="2026-05-10 (30 days)" readonly></div>
+    </div>
+
+    <div>
+      <label>Disputed Item / Account Name</label>
+      <input value="Capital One — Acct ending 4471" id="disputedItem">
+    </div>
+
+    <div>
+      <label>Dispute Notes</label>
+      <textarea id="disputeNotes" placeholder="Summarize the nature of the dispute, what the customer is claiming, and any verification steps completed..."></textarea>
+    </div>
+  </div>
+
+  <!-- Verification & Compliance -->
+  <div class="card">
+    <div class="card-title">Verification &amp; Compliance</div>
+    <div class="g3">
+      <div>
+        <label>ID Verified</label>
+        <select id="idVerified">
+          <option value="yes" selected>✅ Verified — Genesys</option>
+          <option value="manual">Manual Verification</option>
+          <option value="failed">Failed</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
+      <div>
+        <label>FCRA Disclosure Provided</label>
+        <select id="fcraSent">
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
+          <option value="na">N/A</option>
+        </select>
+      </div>
+      <div>
+        <label>CFPB Complaint Filed</label>
+        <select id="cfpb">
+          <option value="no" selected>No</option>
+          <option value="yes">Yes</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
+    </div>
+    <div class="g2">
+      <div><label>Opt-Out / Suppression Status</label>
+        <select id="optOut">
+          <option value="none" selected>None</option>
+          <option value="marketing">Marketing Opt-Out</option>
+          <option value="full">Full Suppression</option>
+          <option value="deceased">Deceased Flag</option>
+        </select>
+      </div>
+      <div><label>FCRA Dispute Window</label><input class="ro" value="Within 30-day statutory period" readonly></div>
+    </div>
+  </div>
+
+  <!-- Case Actions -->
+  <div class="card">
+    <div class="card-title">Case Actions</div>
+    <div>
+      <label>Agent Notes</label>
+      <textarea id="agentNotes" placeholder="Document the call: reason for contact, actions taken, follow-up required..."></textarea>
+    </div>
+    <div class="g3">
+      <div>
+        <label>Resolution Action</label>
+        <select id="resolution">
+          <option value="" selected>— Select —</option>
+          <option value="escalate">Escalate to Supervisor</option>
+          <option value="suppress">Suppress Tradeline</option>
+          <option value="reinvestigate">Request Reinvestigation</option>
+          <option value="send_letter">Send Dispute Letter</option>
+          <option value="no_action">No Action Required</option>
+          <option value="close">Close Case</option>
+        </select>
+      </div>
+      <div>
+        <label>Follow-Up Required</label>
+        <select id="followUp">
+          <option value="no" selected>No</option>
+          <option value="24h">Within 24 Hours</option>
+          <option value="48h">Within 48 Hours</option>
+          <option value="1w">Within 1 Week</option>
+        </select>
+      </div>
+      <div><label>Follow-Up Date</label><input type="date" id="followUpDate"></div>
+    </div>
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://www.atlassian.com/software/jira?referer=jira.com" target="_blank" rel="noopener noreferrer">🔗 Create Jira Ticket</a>
+      <button class="btn btn-accent" onclick="toast('Case saved ✓')">💾 Save Case</button>
+      <button class="btn btn-outline" onclick="toast('Escalation sent ✓')">⬆️ Escalate</button>
+    </div>
   </div>
 
 </div>
@@ -127,13 +361,29 @@ function qpOr(k,d){const v=qp.get(k);return v&&v.trim()?v:d;}
 document.getElementById('fn').value=qpOr('firstName','Alex');
 document.getElementById('ln').value=qpOr('lastName','Johnson');
 document.getElementById('em').value=qpOr('email','alex.johnson@email.com');
+
 function updateBadge(){
   const v=document.getElementById('acctStatus').value;
   const m={active:['badge-active','✅ Active'],pending:['badge-pending','◑ Pending'],hold:['badge-pending','⏸ On Hold']};
   const b=m[v];document.getElementById('badgeCont').innerHTML=b?`<span class="badge ${b[0]}">${b[1]}</span>`:'';
 }
 updateBadge();
-function toast(msg){const c=document.getElementById('tc');const t=document.createElement('div');t.className='toast';t.textContent=msg;c.appendChild(t);requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250);},3000);}
+
+// Score bar sync
+function syncScoreBar(){
+  const s=parseInt(document.getElementById('scoreTM').textContent)||687;
+  const pct=Math.round(((s-300)/(850-300))*100);
+  document.getElementById('scoreBar').style.width=pct+'%';
+}
+syncScoreBar();
+
+function toast(msg){
+  const c=document.getElementById('tc');
+  const t=document.createElement('div');
+  t.className='toast';t.textContent=msg;c.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250);},3000);
+}
 window.updateBadge=updateBadge;window.toast=toast;
 </script>
 </body>
